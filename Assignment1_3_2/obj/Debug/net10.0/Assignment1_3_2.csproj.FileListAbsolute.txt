@@ -1,0 +1,14 @@
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\bin\Debug\net10.0\Assignment1_3_2.exe
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\bin\Debug\net10.0\Assignment1_3_2.deps.json
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\bin\Debug\net10.0\Assignment1_3_2.runtimeconfig.json
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\bin\Debug\net10.0\Assignment1_3_2.dll
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\bin\Debug\net10.0\Assignment1_3_2.pdb
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\Assignment1_3_2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\Assignment1_3_2.AssemblyInfoInputs.cache
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\Assignment1_3_2.AssemblyInfo.cs
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\Assignment1_3_2.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\Assignment1_3_2.dll
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\refint\Assignment1_3_2.dll
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\Assignment1_3_2.pdb
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\Assignment1_3_2.genruntimeconfig.cache
+C:\Users\Administrator\CCADProjects\Assignment1_3_2\obj\Debug\net10.0\ref\Assignment1_3_2.dll
