@@ -1,0 +1,15 @@
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\bin\Debug\net10.0\ChallengeQuestion1.exe
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\bin\Debug\net10.0\ChallengeQuestion1.deps.json
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\bin\Debug\net10.0\ChallengeQuestion1.runtimeconfig.json
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\bin\Debug\net10.0\ChallengeQuestion1.dll
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\bin\Debug\net10.0\ChallengeQuestion1.pdb
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ChallengeQuestion1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ChallengeQuestion1.AssemblyInfoInputs.cache
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ChallengeQuestion1.AssemblyInfo.cs
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ChallengeQuestion1.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ChallengeQuestion1.sourcelink.json
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ChallengeQuestion1.dll
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\refint\ChallengeQuestion1.dll
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ChallengeQuestion1.pdb
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ChallengeQuestion1.genruntimeconfig.cache
+C:\Users\Administrator\CCADProjects\ChallengeQuestion1\obj\Debug\net10.0\ref\ChallengeQuestion1.dll
