@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "ChallengeQuestion2/1.0.0": {
+        "runtime": {
+          "ChallengeQuestion2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ChallengeQuestion2/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
