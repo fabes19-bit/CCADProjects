@@ -23,7 +23,7 @@ A living study guide tracking every core programming and OOP concept covered in 
   ```
 
 ### 2. Control Flow (Conditionals & Loops)
-- **Projects:** `Assignment1_1`, `Assignment1_2`, `Assignment1_3`, `Assignment1_3_1`, `ChallengeQuestion1`, `ChallengeQuestion2`
+- **Projects:** `Assignment1_1`, `Assignment1_2`, `Assignment1_3`, `Assignment1_3_1`, `Assignment2_4_2`, `Assignment2_4_3`, `ChallengeQuestion1`, `ChallengeQuestion2`
 - **`if / else if / else`**: Evaluate range conditions in order (e.g., temperature thresholds in `ChallengeQuestion1`).
 - **`switch`**: Clean multi-branch selection (e.g., menu options in `Assignment1_3`, `Assignment2_1_2`).
 - **`for` loop**: Best when you know the exact iteration count (`for (int i = 0; i < n; i++)`).
@@ -38,7 +38,7 @@ A living study guide tracking every core programming and OOP concept covered in 
 - Expression-bodied methods: `static void Add(double a, double b) => Console.WriteLine(a + b);`
 
 ### 4. Arrays
-- **Projects:** `Assignment1_3_2`, `Assignment1_3_3`
+- **Projects:** `Assignment1_3_2`, `Assignment1_3_3`, `Assignment2_4_1`
 - Fixed-size, zero-indexed collections (`0` to `Length - 1`).
 - **Declaration styles:**
   ```csharp

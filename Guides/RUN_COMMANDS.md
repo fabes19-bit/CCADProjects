@@ -49,6 +49,9 @@ Quick-reference commands to run every project in `C:\Users\Administrator\CCADPro
 | **Assignment2_3** | Combined: File I/O + Tip Calculator | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment2_3"` |
 | **Assignment2_3_1** | Write & read dummy details with `BasicDetails.txt` | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment2_3_1"` |
 | **Assignment2_3_2** | Tip calculator using `:C` and `:P` format specifiers | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment2_3_2"` |
+| **Assignment2_4_1** | Sum of all elements in an integer array | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment2_4_1"` |
+| **Assignment2_4_2** | Find the largest of three numbers | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment2_4_2"` |
+| **Assignment2_4_3** | Determine XY coordinate quadrant (or axis/origin) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment2_4_3"` |
 
 ---
 
