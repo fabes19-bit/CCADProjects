@@ -1,0 +1,163 @@
+# MSSA CCAD — Running Cohort Study Guide (C# / .NET)
+
+A living study guide tracking every core programming and OOP concept covered in the **MSSA CCAD** cohort, linked to your completed projects.
+
+---
+
+## Week 1 — C# Fundamentals (10975)
+
+### 1. Variables, Data Types & Console I/O
+- **Projects:** `Assignment1_1`, `ChallengeQuestion1`, `ChallengeQuestion2`
+- **Common Value Types:** `int` (whole numbers), `double` (floating point), `float` (single-precision, suffix `f`), `decimal` (high-precision money/financial, suffix `m`), `char` (single character in `' '`), `bool` (`true`/`false`).
+- **Reference Type:** `string` (text in `" "`).
+- **Safe Input Parsing:**
+  ```csharp
+  // Convert (throws FormatException on bad input):
+  int num = Convert.ToInt32(Console.ReadLine());
+
+  // TryParse (recommended — avoids crashing on invalid input):
+  if (double.TryParse(Console.ReadLine(), out double temp))
+  {
+      // use temp safely
+  }
+  ```
+
+### 2. Control Flow (Conditionals & Loops)
+- **Projects:** `Assignment1_1`, `Assignment1_2`, `Assignment1_3`, `Assignment1_3_1`, `ChallengeQuestion1`, `ChallengeQuestion2`
+- **`if / else if / else`**: Evaluate range conditions in order (e.g., temperature thresholds in `ChallengeQuestion1`).
+- **`switch`**: Clean multi-branch selection (e.g., menu options in `Assignment1_3`, `Assignment2_1_2`).
+- **`for` loop**: Best when you know the exact iteration count (`for (int i = 0; i < n; i++)`).
+- **`while` loop**: Best when looping until a condition changes (e.g., keeping a menu alive or counting up to `maxAttempts = 3` in `ChallengeQuestion2`).
+- **`break` vs `continue`**:
+  - `break` exits the loop immediately.
+  - `continue` skips the rest of the current iteration and jumps to the next one.
+
+### 3. Methods
+- **Projects:** `Assignment1_3`, `Assignment1_3_1`
+- Break logic into reusable blocks (`static void Add(double a, double b)` or returning values like `static int Add(int a, int b)`).
+- Expression-bodied methods: `static void Add(double a, double b) => Console.WriteLine(a + b);`
+
+### 4. Arrays
+- **Projects:** `Assignment1_3_2`, `Assignment1_3_3`
+- Fixed-size, zero-indexed collections (`0` to `Length - 1`).
+- **Declaration styles:**
+  ```csharp
+  int[] a = new int[3];                // Size first
+  int[] b = new int[] { 50, 10, 40 };  // Explicit init
+  string[] c = { "C#", "Cloud" };      // Shorthand
+  ```
+- **Key `Array` Properties & Methods:**
+  - `.Length` (total items), `.Rank` (number of dimensions)
+  - `Array.Sort(arr)`, `Array.Reverse(arr)`, `Array.IndexOf(arr, value)`, `Array.Clear(arr, startIndex, count)`
+
+### 5. Structs vs. Classes & Encapsulation
+- **Projects:** `Assignment1_4`, `Assignment1_4_1`, `Assignment1_4_2`
+- **`struct`** (e.g., `Point`): **Value type** (stored on the stack/inline, copied by value). Great for small data bundles like coordinates (`X`, `Y`).
+- **`class`** (e.g., `Student`): **Reference type** (allocated on the heap, variables hold a reference). Supports full inheritance and polymorphism.
+- **Encapsulation (Private Fields + Public Properties):**
+  Keep data members `private` and expose controlled access via `public` properties (`get` / `set`):
+  ```csharp
+  private int studentId;
+  public int StudentId
+  {
+      get { return studentId; }
+      set { studentId = value; }
+  }
+  ```
+
+---
+
+## Week 2 — Object-Oriented Programming & I/O (10975)
+
+### 6. Inheritance & Polymorphism (Class Hierarchies)
+- **Projects:** `Assignment2_1`, `Assignment2_1_1`
+- **Inheritance (`:`)**: A derived (child) class inherits members from a base (parent) class (`class Dog : Pet`).
+- **Constructor Chaining (`: base(...)`)**: Calls the parent class constructor to initialize inherited state.
+- **Runtime Polymorphism (`virtual` + `override`)**:
+  - Mark a base method `virtual` so derived classes can specialize it with `override`.
+  - Storing `Beagle`, `WelshTerrier`, and `Boxer` in a `List<Pet>` lets `p.MakeSound()` dispatch to the right implementation at runtime.
+
+### 7. Method Overloading (Compile-Time Polymorphism)
+- **Projects:** `Assignment2_1`, `Assignment2_1_2`
+- Multiple methods share the **same name** in the same class, differentiated by **parameter count** or **parameter types** (not return type alone).
+  ```csharp
+  public static int Add(int num1, int num2) => num1 + num2;
+  public static decimal Add(decimal num1, decimal num2, decimal num3) => num1 + num2 + num3;
+  public static float Multiply(float num1, float num2) => num1 * num2;
+  public static float Multiply(float num1, float num2, float num3) => num1 * num2 * num3;
+  ```
+- **Static Methods (`public static`)**: Called directly on the class (`Maths.Add(2, 3)`) without creating an object instance.
+- **Naming tip:** Avoid naming your class `Math` because it collides with `System.Math`.
+
+### 8. Abstract Classes & Abstract Methods
+- **Projects:** `Assignment2_2`
+- **`abstract class Shape`**:
+  - **Cannot** be instantiated directly (`new Shape()` is a compiler error).
+  - Acts as a blueprint sharing common properties (`Id`, `Name`, `Color`) and enforcing a contract via `abstract` methods (`public abstract double CalculateArea();`).
+- **Concrete Derived Classes (`Circle`, `Square`)**:
+  - **Must** `override` every `abstract` method from the base class.
+  - Circle area: $\pi r^2$ (`Math.PI * Radius * Radius`).
+  - Square area: $\text{side}^2$ (`Side * Side`).
+
+### 9. File I/O (`System.IO`)
+- **Projects:** `Assignment2_3`, `Assignment2_3_1`
+- Always wrap `StreamWriter` and `StreamReader` in a `using` block so file handles are automatically flushed and closed (even if an exception occurs):
+  ```csharp
+  using (StreamWriter writer = new StreamWriter(filePath))
+  {
+      writer.WriteLine("Name: Jordan Avery");
+  }
+
+  using (StreamReader reader = new StreamReader(filePath))
+  {
+      string? line;
+      while ((line = reader.ReadLine()) != null)
+      {
+          Console.WriteLine(line);
+      }
+  }
+  ```
+- Wrap file operations in `try / catch` to handle permission or missing-file errors gracefully.
+
+### 10. Standard Numeric Format Specifiers
+- **Projects:** `Assignment2_3`, `Assignment2_3_2`, `ChallengeQuestion4`
+- Format numbers cleanly inside interpolated strings (`$"{value:SPECIFIER}"`):
+  | Specifier | Meaning | Example Input | Formatted Output |
+  | :--- | :--- | :--- | :--- |
+  | `:C` | Currency (local culture) | `85.5m` | `$85.50` |
+  | `:P` | Percentage (multiplies by 100 and adds `%`) | `0.18m` | `18.00%` |
+  | `:P0` / `:P1` | Percentage with 0 or 1 decimal place | `0.18m` | `18%` / `18.0%` |
+  | `:F2` | Fixed-point with 2 decimal places | `78.5398` | `78.54` |
+  | `:N0` | Number with thousands separators | `1250000` | `1,250,000` |
+
+### 11. Nested Loops, Multi-Value Input Parsing & Computed Properties
+- **Projects:** `ChallengeQuestion3`, `ChallengeQuestion4`
+- **Nested `for` Loops (Pattern Printing):**
+  Outer loop controls rows; inner loop controls how many characters print on each row:
+  ```csharp
+  for (int row = width; row >= 1; row--)
+  {
+      for (int col = 0; col < row; col++)
+          Console.Write(number);
+      Console.WriteLine();
+  }
+  ```
+- **Parsing Multiple Values on One Line (`string.Split`):**
+  ```csharp
+  string[] parts = input.Split(new[] { ' ', ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+  ```
+- **Computed (Read-Only) Properties:**
+  Derive values dynamically from other properties so they never fall out of sync:
+  ```csharp
+  public double TotalMarks => PhysicsMarks + ChemistryMarks + ComputerApplicationMarks;
+  public double Percentage => TotalMarks / 3.0;
+  ```
+
+---
+
+## Interview & Exam Quick-Check Questions (Weeks 1–2)
+1. **Struct vs. Class:** What's the difference? *(Value type on stack vs. reference type on heap; structs don't support class inheritance.)*
+2. **Overloading vs. Overriding:** What's the difference? *(Overloading = same name, different signature, resolved at compile time; Overriding = derived class replaces `virtual`/`abstract` base method, resolved at runtime.)*
+3. **Why use `decimal` instead of `double` for money?** *(`decimal` uses base-10 floating point, avoiding binary rounding errors in financial calculations.)*
+4. **Why wrap `StreamWriter`/`StreamReader` in `using`?** *(Ensures `Dispose()` is called automatically to flush buffers and release OS file locks.)*
+5. **Can you instantiate an `abstract` class?** *(No — you must inherit from it in a concrete class and implement all `abstract` members.)*
