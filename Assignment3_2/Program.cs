@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Assignment3_2
 {
     internal class Program
     {
+        private static readonly Queue<int> tokenQueue = new Queue<int>();
+
         static void Main(string[] args)
         {
             bool running = true;
@@ -45,12 +48,6 @@ namespace Assignment3_2
             }
         }
 
-        /// <summary>
-        /// Question 1: Create a 2D array to store integers and print them in matrix format with proper formatting.
-        /// Example:
-        /// | 2 | 3 | 4 |
-        /// | 1 | 4 | 6 |
-        /// </summary>
         static void RunQuestion1()
         {
             Console.WriteLine("\n----------------------------------------------------------");
@@ -70,20 +67,17 @@ namespace Assignment3_2
 
             if (response == "y" || response == "yes")
             {
-                Console.Write("Enter number of rows: ");
-                int rows = Convert.ToInt32(Console.ReadLine());
-
-                Console.Write("Enter number of columns: ");
-                int cols = Convert.ToInt32(Console.ReadLine());
+                int rows = ReadPositiveInt("Enter number of rows: ");
+                int cols = ReadPositiveInt("Enter number of columns: ");
 
                 int[,] custom = new int[rows, cols];
 
+                Console.WriteLine($"\nEnter elements for a {rows}x{cols} matrix (enter one-by-one or separated by spaces):");
                 for (int r = 0; r < rows; r++)
                 {
                     for (int c = 0; c < cols; c++)
                     {
-                        Console.Write($"Element [{r},{c}]: ");
-                        custom[r, c] = Convert.ToInt32(Console.ReadLine());
+                        custom[r, c] = ReadElement($"Element [{r},{c}]: ");
                     }
                 }
 
@@ -108,45 +102,33 @@ namespace Assignment3_2
             }
         }
 
-        /// <summary>
-        /// Question 2: Addition of two Matrices of the same size.
-        /// </summary>
         static void RunQuestion2()
         {
             Console.WriteLine("\n----------------------------------------------------------");
             Console.WriteLine("  Question 2: Addition of Two Matrices");
             Console.WriteLine("----------------------------------------------------------");
 
-            Console.Write("Input the size of the square matrix (less than 5): ");
-            int size = Convert.ToInt32(Console.ReadLine());
-
-            if (size <= 0 || size >= 5)
-            {
-                Console.WriteLine("Size must be positive and less than 5.");
-                return;
-            }
+            int size = ReadMatrixSize("Input the size of the square matrix (less than 5): ");
 
             int[,] first = new int[size, size];
             int[,] second = new int[size, size];
             int[,] sum = new int[size, size];
 
-            Console.WriteLine("Input elements in the first matrix :");
+            Console.WriteLine("\nInput elements in the first matrix :");
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    Console.Write($"element - [{i}],[{j}] : ");
-                    first[i, j] = Convert.ToInt32(Console.ReadLine());
+                    first[i, j] = ReadElement($"element - [{i}],[{j}] : ");
                 }
             }
 
-            Console.WriteLine("Input elements in the second matrix :");
+            Console.WriteLine("\nInput elements in the second matrix :");
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    Console.Write($"element - [{i}],[{j}] : ");
-                    second[i, j] = Convert.ToInt32(Console.ReadLine());
+                    second[i, j] = ReadElement($"element - [{i}],[{j}] : ");
                 }
             }
 
@@ -181,6 +163,55 @@ namespace Assignment3_2
                 }
                 Console.WriteLine();
             }
+        }
+
+        private static int ReadMatrixSize(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine();
+                if (int.TryParse(input?.Trim(), out int val) && val > 0 && val < 5)
+                {
+                    return val;
+                }
+                Console.WriteLine("Invalid size. Please enter a positive integer less than 5 (e.g., 2, 3, or 4).\n");
+            }
+        }
+
+        private static int ReadPositiveInt(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine();
+                if (int.TryParse(input?.Trim(), out int val) && val > 0)
+                {
+                    return val;
+                }
+                Console.WriteLine("Please enter a valid positive integer.\n");
+            }
+        }
+
+        private static int ReadElement(string prompt)
+        {
+            while (tokenQueue.Count == 0)
+            {
+                Console.Write(prompt);
+                string? line = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                string[] parts = line.Split(new[] { ' ', ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string part in parts)
+                {
+                    if (int.TryParse(part, out int val))
+                    {
+                        tokenQueue.Enqueue(val);
+                    }
+                }
+            }
+
+            return tokenQueue.Dequeue();
         }
     }
 }

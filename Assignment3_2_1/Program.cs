@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Assignment3_2_1
 {
     public class Program
     {
+        private static readonly Queue<int> tokenQueue = new Queue<int>();
+
         public static void Main(string[] args)
         {
             Console.WriteLine("==========================================================");
@@ -19,23 +22,26 @@ namespace Assignment3_2_1
             Console.WriteLine("--- Example Matrix Output ---");
             PrintMatrix(sampleMatrix);
 
-            // 2. Interactive user-defined matrix
+            // 2. Interactive user-defined matrix with crash-proof input handling
             Console.WriteLine("\n--- Create Your Own 2D Matrix ---");
             Console.Write("Enter number of rows (or 0 to exit): ");
-            if (int.TryParse(Console.ReadLine(), out int rows) && rows > 0)
+            string? rInput = Console.ReadLine();
+
+            if (int.TryParse(rInput?.Trim(), out int rows) && rows > 0)
             {
                 Console.Write("Enter number of columns: ");
-                if (int.TryParse(Console.ReadLine(), out int cols) && cols > 0)
+                string? cInput = Console.ReadLine();
+
+                if (int.TryParse(cInput?.Trim(), out int cols) && cols > 0)
                 {
                     int[,] userMatrix = new int[rows, cols];
 
-                    Console.WriteLine($"\nEnter elements for a {rows}x{cols} matrix:");
+                    Console.WriteLine($"\nEnter elements for a {rows}x{cols} matrix (enter one-by-one or all on one line):");
                     for (int r = 0; r < rows; r++)
                     {
                         for (int c = 0; c < cols; c++)
                         {
-                            Console.Write($"Element [{r},{c}]: ");
-                            userMatrix[r, c] = Convert.ToInt32(Console.ReadLine());
+                            userMatrix[r, c] = ReadElement($"Element [{r},{c}]: ");
                         }
                     }
 
@@ -45,10 +51,28 @@ namespace Assignment3_2_1
             }
         }
 
-        /// <summary>
-        /// Prints a 2D rectangular array in matrix format (| x | y | z |)
-        /// using GetLength(0) for rows and GetLength(1) for columns.
-        /// </summary>
+        private static int ReadElement(string prompt)
+        {
+            while (tokenQueue.Count == 0)
+            {
+                Console.Write(prompt);
+                string? line = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                string[] parts = line.Split(new[] { ' ', ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string part in parts)
+                {
+                    if (int.TryParse(part, out int val))
+                    {
+                        tokenQueue.Enqueue(val);
+                    }
+                }
+            }
+
+            return tokenQueue.Dequeue();
+        }
+
         public static void PrintMatrix(int[,] matrix)
         {
             int rows = matrix.GetLength(0);
