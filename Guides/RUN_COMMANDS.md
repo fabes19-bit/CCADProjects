@@ -66,6 +66,7 @@ Quick-reference commands to run every project in `C:\Users\Administrator\CCADPro
 | **Assignment3_1_4** | Replace first occurrence of 2 consecutive 1s with 0s | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1_4"` |
 | **Assignment3_2** | Combined: 2D array matrix display (more questions to come) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2"` |
 | **Assignment3_2_1** | 2D rectangular array formatted in matrix layout (`\| 2 \| 3 \| 4 \|`) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_1"` |
+| **Assignment3_2_2** | Addition of two square matrices of the same size | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_2"` |
 
 ---
 

@@ -268,6 +268,26 @@ A living study guide tracking every core programming and OOP concept covered in 
   - **2D Array (`int[,]`):** Rectangular; single heap allocation; accessed via `matrix[r, c]`.
   - **Jagged Array (`int[][]`):** "Array of arrays"; each inner array is an independent heap object with potentially different lengths; accessed via `jagged[r][c]`.
 
+### 17. Matrix Arithmetic & Element-Wise Operations
+- **Projects:** `Assignment3_2`, `Assignment3_2_2`
+- **Microsoft Learn Reference:** [*Multidimensional Arrays - C# Programming Guide*](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/multidimensional-arrays) & [*Indexer operator [] - C# Reference*](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#indexer-operator-)
+- **Matrix Addition Rules:**
+  Two matrices $A$ and $B$ can be added if and only if they share identical dimensions ($M \times N$). The sum matrix $C = A + B$ is formed by adding elements at identical coordinates:
+  $$C[i, j] = A[i, j] + B[i, j] \quad \text{for } 0 \le i < M, \, 0 \le j < N$$
+- **C# Implementation:**
+  ```csharp
+  int[,] sum = new int[size, size];
+  for (int i = 0; i < size; i++)
+  {
+      for (int j = 0; j < size; j++)
+      {
+          sum[i, j] = first[i, j] + second[i, j];
+      }
+  }
+  ```
+- **Performance & Cache Locality:**
+  Because .NET stores 2D arrays in row-major order, traversing rows in the outer loop `i` and columns in the inner loop `j` accesses adjacent memory addresses sequentially, ensuring optimal CPU L1/L2 data cache utilization.
+
 ---
 
 ## Interview & Exam Quick-Check Questions (Weeks 1–3)
