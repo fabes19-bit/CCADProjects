@@ -288,6 +288,105 @@ A living study guide tracking every core programming and OOP concept covered in 
 - **Performance & Cache Locality:**
   Because .NET stores 2D arrays in row-major order, traversing rows in the outer loop `i` and columns in the inner loop `j` accesses adjacent memory addresses sequentially, ensuring optimal CPU L1/L2 data cache utilization.
 
+### 18. Operator Overloading
+- **Projects:** `Assignment3_2`, `Assignment3_2_3`
+- **Microsoft Learn Reference:** [*Operator overloading - C# reference*](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading)
+- **Concept & Syntax Rules:**
+  - Operator overloading enables user-defined types (classes and structs) to customize the behavior of built-in C# operators (`+`, `-`, `*`, `==`, `<`, etc.).
+  - **Declaration Signature:** An operator overload must always be declared as `public static`.
+  - **Type Requirement:** At least one of the operator's parameters must be of the containing class or struct type.
+  - **Return Type:** The return type does not have to be the containing type; it can be any valid C# type (e.g., returning `double` when calculating total or difference of geometric properties).
+- **Example Implementation (Circle Area Operators):**
+  ```csharp
+  public class Circle
+  {
+      public double Radius { get; set; }
+      public double Area => Math.PI * Radius * Radius;
+
+      // Overloaded '+' operator: adds areas of two circles
+      public static double operator +(Circle c1, Circle c2)
+      {
+          if (c1 == null || c2 == null) return 0;
+          return c1.Area + c2.Area;
+      }
+
+      // Overloaded '-' operator: difference of areas
+      public static double operator -(Circle c1, Circle c2)
+      {
+          if (c1 == null || c2 == null) return 0;
+          return Math.Abs(c1.Area - c2.Area);
+      }
+  }
+  ```
+- **Operator Overloading Guidelines:**
+  - Overloaded operators cannot change operator precedence or associativity rules defined by the C# language.
+  - If comparison operators (`==` and `!=`, `<` and `>`) are overloaded, they must be overloaded in matching pairs.
+
+### 19. Method Parameter Modifiers: `params` and `out`
+- **Projects:** `Assignment3_2`, `Assignment3_2_4`
+- **Microsoft Learn Reference:** [*params collection parameter modifier - C# reference*](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/params) & [*out parameter modifier - C# reference*](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-parameter-modifier)
+- **The `params` Modifier (Variable-Length Argument Lists):**
+  - Specifies that a method parameter can accept zero or more arguments of the given type, passed as a comma-separated argument list or as an existing array.
+  - **Rules:**
+    1. Only one `params` keyword is allowed in a method signature.
+    2. It must be the **last** parameter in the parameter list.
+    3. The parameter type must be a single-dimensional array (e.g., `params double[] numbers`).
+- **The `out` Modifier (Definite Assignment & Output Arguments):**
+  - Passes arguments by reference. Unlike standard value parameters, variables passed to `out` parameters do not need to be initialized before being passed into the method.
+  - **Definite Assignment Rule:** The callee (called method) **must** assign a value to every `out` parameter on all possible code paths before returning.
+  - Enables methods to return multiple pieces of data to the caller without creating custom wrapper classes or structs.
+- **Example Implementation:**
+  ```csharp
+  public static void CalculateTotalAndAverage(out double total, out double average, params double[] numbers)
+  {
+      total = 0;
+      if (numbers == null || numbers.Length == 0)
+      {
+          average = 0;
+          return;
+      }
+
+      foreach (double num in numbers)
+      {
+          total += num;
+      }
+      average = total / numbers.Length;
+  }
+
+  // Invocation:
+  CalculateTotalAndAverage(out double total, out double avg, 10, 15, 20, 30);
+  ```
+
+### 20. Array Searching Algorithms & Linear Search
+- **Projects:** `Assignment3_2`, `Assignment3_2_5`
+- **Microsoft Learn Reference:** [*Arrays - C# Programming Guide*](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/) & [*Array.IndexOf Method*](https://learn.microsoft.com/en-us/dotnet/api/system.array.indexof)
+- **Linear Search Mechanics:**
+  - Iterates sequentially from index $0$ to $\text{Length} - 1$ through the array, comparing each element with the target search item.
+  - **Early Exit:** As soon as an element matches the target, the current index is returned immediately, terminating further iterations.
+  - **Sentinel Value (`-1`):** In C# and computer science conventions, valid array indices are 0-based ($\ge 0$). Returning `-1` unambiguously signals that the search item does not exist in the collection.
+- **Complexity Analysis:**
+  - **Best Case:** $O(1)$ — Target is at index 0.
+  - **Worst Case:** $O(N)$ — Target is at the very last index or not present at all.
+  - **Average Case:** $O(N)$ — Target is found halfway through on average ($\approx N/2$ operations).
+  - **Space Complexity:** $O(1)$ auxiliary space (operates in-place).
+- **Example Implementation:**
+  ```csharp
+  public static int Search(int[] arr, int target)
+  {
+      if (arr == null) return -1;
+
+      for (int i = 0; i < arr.Length; i++)
+      {
+          if (arr[i] == target)
+          {
+              return i; // Target found
+          }
+      }
+
+      return -1; // Target not found
+  }
+  ```
+
 ---
 
 ## Interview & Exam Quick-Check Questions (Weeks 1–3)
@@ -300,3 +399,7 @@ A living study guide tracking every core programming and OOP concept covered in 
 7. **What is short-circuit evaluation in C#?** *(`&&` and `||` stop evaluating right-hand operands as soon as the outcome is guaranteed: `false && ...` skips right, `true || ...` skips right.)*
 8. **Why does modifying an array inside a method change the caller's array?** *(Arrays are reference types stored on the heap; the method receives a copy of the reference pointing to the same underlying array memory.)*
 9. **What is the difference between `arr.Length` and `arr.GetLength(0)` on a 2D array?** *(`arr.Length` returns the total number of elements across all dimensions; `arr.GetLength(0)` returns the number of rows in the first dimension.)*
+10. **What is operator overloading and what are the syntax rules in C#?** *(Overloading allows custom classes/structs to define behavior for operators like `+` and `-`. Must be declared `public static`, and at least one operand must be of the declaring type.)*
+11. **What are the rules and constraints when using the `params` keyword?** *(Only one `params` parameter is allowed per method, it must be the last parameter, and it must be a single-dimensional array.)*
+12. **How does an `out` parameter differ from a `ref` parameter?** *(`out` parameters do not need to be initialized by the caller prior to passing, but the called method is required under definite assignment rules to set a value before returning. `ref` parameters require caller initialization.)*
+13. **What is the time complexity of linear search, and why does `Search` return `-1` if not found?** *(Time complexity is $O(N)$ in the worst/average case. `-1` is used as a sentinel value because valid 0-based array indices are $\ge 0$.)*

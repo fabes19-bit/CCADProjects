@@ -64,9 +64,12 @@ Quick-reference commands to run every project in `C:\Users\Administrator\CCADPro
 | **Assignment3_1_2** | `IfYearIsLeap` method (Gregorian rules) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1_2"` |
 | **Assignment3_1_3** | Count space characters in a string | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1_3"` |
 | **Assignment3_1_4** | Replace first occurrence of 2 consecutive 1s with 0s | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1_4"` |
-| **Assignment3_2** | Combined: 2D array matrix display (more questions to come) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2"` |
+| **Assignment3_2** | Combined: All 5 Assignment 3.2 questions (Matrix, Overloading, Params/Out, Search) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2"` |
 | **Assignment3_2_1** | 2D rectangular array formatted in matrix layout (`\| 2 \| 3 \| 4 \|`) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_1"` |
 | **Assignment3_2_2** | Addition of two square matrices of the same size | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_2"` |
+| **Assignment3_2_3** | Circle class overloading `+` and `-` operators for area calculations | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_3"` |
+| **Assignment3_2_4** | Calculate total & average using `params double[]` and `out` parameters | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_4"` |
+| **Assignment3_2_5** | Array linear search returning 0-based index or -1 | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_5"` |
 
 ---
 
