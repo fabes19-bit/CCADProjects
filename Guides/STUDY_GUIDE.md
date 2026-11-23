@@ -234,6 +234,40 @@ A living study guide tracking every core programming and OOP concept covered in 
 - **Early Exit (`break`):**
   The `break` statement terminates the closest enclosing iteration loop immediately, ensuring that subsequent pairs of consecutive ones remain untouched.
 
+### 16. Multidimensional (2D) Arrays vs. Jagged Arrays (`int[,]` vs. `int[][]`)
+- **Projects:** `Assignment3_2`, `Assignment3_2_1`
+- **Microsoft Learn Reference:** [*Multidimensional Arrays - C# Programming Guide*](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/multidimensional-arrays) & [*Array.GetLength Method*](https://learn.microsoft.com/en-us/dotnet/api/system.array.getlength)
+- **Rectangular Multidimensional Array (`int[,]`):**
+  A 2D array in C# represents a fixed grid (matrix) where every row has the exact same number of columns:
+  ```csharp
+  int[,] matrix = {
+      { 2, 3, 4 },
+      { 1, 4, 6 }
+  };
+  ```
+  - **Memory Layout:** Allocated as a single contiguous block of memory on the managed heap.
+  - **Dimensions (Rank):** `matrix.Rank` is `2`.
+  - **Querying Bounds:**
+    - `matrix.Length`: Total element count across all dimensions ($2 \times 3 = 6$).
+    - `matrix.GetLength(0)`: Number of rows (dimension index 0).
+    - `matrix.GetLength(1)`: Number of columns (dimension index 1).
+- **Row-Major Traversal:**
+  Iterate using nested `for` loops where the outer loop traverses rows and the inner loop traverses columns:
+  ```csharp
+  for (int r = 0; r < matrix.GetLength(0); r++)
+  {
+      Console.Write("|");
+      for (int c = 0; c < matrix.GetLength(1); c++)
+      {
+          Console.Write($" {matrix[r, c]} |");
+      }
+      Console.WriteLine();
+  }
+  ```
+- **Difference from Jagged Arrays (`int[][]`):**
+  - **2D Array (`int[,]`):** Rectangular; single heap allocation; accessed via `matrix[r, c]`.
+  - **Jagged Array (`int[][]`):** "Array of arrays"; each inner array is an independent heap object with potentially different lengths; accessed via `jagged[r][c]`.
+
 ---
 
 ## Interview & Exam Quick-Check Questions (Weeks 1–3)
@@ -245,3 +279,4 @@ A living study guide tracking every core programming and OOP concept covered in 
 6. **Why is `StringBuilder` faster than string concatenation in loops?** *(String is immutable, so concatenation creates a new heap object on every step. `StringBuilder` uses a mutable character buffer and expands in-place without reallocation.)*
 7. **What is short-circuit evaluation in C#?** *(`&&` and `||` stop evaluating right-hand operands as soon as the outcome is guaranteed: `false && ...` skips right, `true || ...` skips right.)*
 8. **Why does modifying an array inside a method change the caller's array?** *(Arrays are reference types stored on the heap; the method receives a copy of the reference pointing to the same underlying array memory.)*
+9. **What is the difference between `arr.Length` and `arr.GetLength(0)` on a 2D array?** *(`arr.Length` returns the total number of elements across all dimensions; `arr.GetLength(0)` returns the number of rows in the first dimension.)*
