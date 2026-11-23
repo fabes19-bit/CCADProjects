@@ -55,6 +55,18 @@ Quick-reference commands to run every project in `C:\Users\Administrator\CCADPro
 
 ---
 
+## Week 3 — Programming in C# (20483)
+
+| Project | Description | Run Command |
+| :--- | :--- | :--- |
+| **Assignment3_1** | Combined: Even numbers, leap year, count spaces, consecutive 1s | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1"` |
+| **Assignment3_1_1** | Return even numbers 2-98 using `StringBuilder` | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1_1"` |
+| **Assignment3_1_2** | `IfYearIsLeap` method (Gregorian rules) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1_2"` |
+| **Assignment3_1_3** | Count space characters in a string | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1_3"` |
+| **Assignment3_1_4** | Replace first occurrence of 2 consecutive 1s with 0s | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_1_4"` |
+
+---
+
 ## Challenge Questions
 
 | Project | Description | Run Command |

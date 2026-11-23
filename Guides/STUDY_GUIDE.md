@@ -155,9 +155,93 @@ A living study guide tracking every core programming and OOP concept covered in 
 
 ---
 
-## Interview & Exam Quick-Check Questions (Weeks 1–2)
+## Week 3 — Advanced C# Concepts & Algorithms (20483)
+
+### 12. String Mutability vs. StringBuilder (`System.Text.StringBuilder`)
+- **Projects:** `Assignment3_1`, `Assignment3_1_1`
+- **Microsoft Learn Reference:** [*How to concatenate strings in C#* & *StringBuilder Class (.NET API Browser)*](https://learn.microsoft.com/en-us/dotnet/api/system.text.stringbuilder)
+- **`System.String` Immutability:**
+  In C#, `string` is an immutable reference type. Every time you concatenate strings using the `+` or `+=` operator inside a loop, the CLR allocates an entirely **new string object** on the managed heap and copies all previous characters into it. For $N$ loop iterations, this results in $O(N^2)$ memory churn and triggers garbage collection (GC) pressure.
+- **`System.Text.StringBuilder`:**
+  Represents a mutable sequence of characters. It maintains an internal character array buffer that dynamically expands as needed:
+  ```csharp
+  StringBuilder sb = new StringBuilder();
+  for (int i = 2; i < 100; i += 2)
+  {
+      if (sb.Length > 0)
+          sb.Append(' ');
+      sb.Append(i);
+  }
+  return sb.ToString();
+  ```
+  - Appends characters in amortized $O(1)$ time.
+  - Generates zero intermediate string heap allocations during the loop.
+  - Converts back to a standard string via `.ToString()` only once when completed.
+
+### 13. Boolean Logic & Gregorian Leap Year Rules
+- **Projects:** `Assignment3_1`, `Assignment3_1_2`
+- **Microsoft Learn Reference:** [*DateTime.IsLeapYear Method* & *C# Boolean Logical Operators*](https://learn.microsoft.com/en-us/dotnet/api/system.datetime.isleapyear)
+- **Algorithm Rules:**
+  According to the Gregorian calendar:
+  1. A year divisible by 4 is a leap year (`year % 4 == 0`).
+  2. **Exception:** If divisible by 100, it is **not** a leap year (`year % 100 != 0`).
+  3. **Exception to the Exception:** If divisible by 400, it **is** a leap year (`year % 400 == 0`).
+- **C# Implementation:**
+  ```csharp
+  public static bool IfYearIsLeap(int year)
+  {
+      return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+  }
+  ```
+- **Operator Precedence & Short-Circuit Evaluation (`&&` and `||`):**
+  Microsoft Learn highlights that C#'s conditional logical operators (`&&` and `||`) use **short-circuit evaluation**:
+  - In `A && B`, if `A` evaluates to `false`, `B` is never evaluated.
+  - In `A || B`, if `A` evaluates to `true`, `B` is never evaluated.
+
+### 14. String Traversal & Character Inspection
+- **Projects:** `Assignment3_1`, `Assignment3_1_3`
+- **Microsoft Learn Reference:** [*Strings - C# Programming Guide* & *Char Struct*](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/)
+- **Strings as Read-Only Collections of Characters:**
+  In C#, `string` implements `IEnumerable<char>`. You can inspect characters individually using an indexer (`str[i]`) or with a `foreach` loop:
+  ```csharp
+  int spaceCount = 0;
+  foreach (char ch in str)
+  {
+      if (ch == ' ')
+          spaceCount++;
+  }
+  ```
+- **Performance Tip:** Iterating via `foreach (char ch in str)` avoids index calculations and checks character values directly without creating intermediate string tokens.
+
+### 15. Array Mutation, Bounds Safety & Early Loop Exit (`break`)
+- **Projects:** `Assignment3_1`, `Assignment3_1_4`
+- **Microsoft Learn Reference:** [*Arrays - C# Programming Guide* & *Iteration statements - break statement*](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/jump-statements#the-break-statement)
+- **Reference Semantics with Arrays:**
+  When passing an array `int[] arr` to a method, the reference to the array on the heap is passed. Any element assignment `arr[i] = 0` mutates the underlying array elements directly in place.
+- **Preventing `IndexOutOfRangeException`:**
+  When inspecting adjacent elements (`arr[i]` and `arr[i + 1]`), the loop upper bound must be strictly less than `arr.Length - 1`:
+  ```csharp
+  for (int i = 0; i < arr.Length - 1; i++)
+  {
+      if (arr[i] == 1 && arr[i + 1] == 1)
+      {
+          arr[i] = 0;
+          arr[i + 1] = 0;
+          break; // Halts iteration immediately after the first occurrence
+      }
+  }
+  ```
+- **Early Exit (`break`):**
+  The `break` statement terminates the closest enclosing iteration loop immediately, ensuring that subsequent pairs of consecutive ones remain untouched.
+
+---
+
+## Interview & Exam Quick-Check Questions (Weeks 1–3)
 1. **Struct vs. Class:** What's the difference? *(Value type on stack vs. reference type on heap; structs don't support class inheritance.)*
 2. **Overloading vs. Overriding:** What's the difference? *(Overloading = same name, different signature, resolved at compile time; Overriding = derived class replaces `virtual`/`abstract` base method, resolved at runtime.)*
 3. **Why use `decimal` instead of `double` for money?** *(`decimal` uses base-10 floating point, avoiding binary rounding errors in financial calculations.)*
 4. **Why wrap `StreamWriter`/`StreamReader` in `using`?** *(Ensures `Dispose()` is called automatically to flush buffers and release OS file locks.)*
 5. **Can you instantiate an `abstract` class?** *(No — you must inherit from it in a concrete class and implement all `abstract` members.)*
+6. **Why is `StringBuilder` faster than string concatenation in loops?** *(String is immutable, so concatenation creates a new heap object on every step. `StringBuilder` uses a mutable character buffer and expands in-place without reallocation.)*
+7. **What is short-circuit evaluation in C#?** *(`&&` and `||` stop evaluating right-hand operands as soon as the outcome is guaranteed: `false && ...` skips right, `true || ...` skips right.)*
+8. **Why does modifying an array inside a method change the caller's array?** *(Arrays are reference types stored on the heap; the method receives a copy of the reference pointing to the same underlying array memory.)*
