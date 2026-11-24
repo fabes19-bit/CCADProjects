@@ -70,6 +70,8 @@ Quick-reference commands to run every project in `C:\Users\Administrator\CCADPro
 | **Assignment3_2_3** | Circle class overloading `+` and `-` operators for area calculations | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_3"` |
 | **Assignment3_2_4** | Calculate total & average using `params double[]` and `out` parameters | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_4"` |
 | **Assignment3_2_5** | Array linear search returning 0-based index or -1 | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_2_5"` |
+| **Assignment3_3** | Windows Forms: Student Management System (Student class, MonthOfAdmission enum, DataGridView CRUD) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_3"` |
+| **Assignment3_3_2** | Windows Forms: Student class, MonthOfAdmission enum & DataGridView operations (Q2) | `dotnet run --project "C:\Users\Administrator\CCADProjects\Assignment3_3_2"` |
 
 ---
 

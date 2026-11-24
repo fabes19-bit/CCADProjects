@@ -387,6 +387,91 @@ A living study guide tracking every core programming and OOP concept covered in 
   }
   ```
 
+### 21. Windows Forms Architecture & Common Controls
+- **Projects:** `Assignment3_3`, `Assignment3_3_2`
+- **Microsoft Learn Reference:** [*Windows Forms Overview*](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/overview/) & [*Controls in Windows Forms*](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/controls/)
+- **Core Principles:**
+  - **Event-Driven Architecture:** Windows Forms apps run an operating system message loop via `Application.Run(new Form1())`. The main thread must be decorated with `[STAThread]` (Single-Threaded Apartment) to interoperate with COM and native Windows subsystems.
+  - **Form Lifecycle:** `Form.Load` fires when the form is first created in memory before it becomes visible, making it the ideal event for populating dropdowns and initializing data grids.
+  - **Common Controls & Property Customization:**
+    - `Form`: Top-level window container (`Text`, `StartPosition`, `MinimumSize`, `BackColor`).
+    - `GroupBox`: Provides logical visual grouping and an accessible border/header around related input fields.
+    - `TextBox`: Captures text input; properties like `PlaceholderText`, `Text`, `ReadOnly`.
+    - `ComboBox`: Dropdown list selection; `DropDownStyle = ComboBoxStyle.DropDownList` prevents user entry of non-whitelisted items.
+    - `Button`: Triggers user actions; styled with `FlatStyle = FlatStyle.Flat`, `BackColor`, `ForeColor`, `Cursor = Cursors.Hand`.
+    - `StatusStrip` & `ToolStripStatusLabel`: Anchored to the bottom to convey real-time application state and user operation feedback.
+
+### 22. C# Enumeration Types (`enum`) & UI Binding
+- **Projects:** `Assignment3_3`, `Assignment3_3_2`
+- **Microsoft Learn Reference:** [*Enumeration types - C# reference*](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/enum)
+- **Concept & Definition:**
+  - An `enum` is a distinct value type defined by a set of named integral constants.
+  - Improves code readability, maintainability, and prevents invalid inputs compared to "magic strings" or raw integers.
+  ```csharp
+  public enum MonthOfAdmission
+  {
+      January = 1,
+      February = 2,
+      March = 3,
+      April = 4,
+      May = 5,
+      June = 6,
+      July = 7,
+      August = 8,
+      September = 9,
+      October = 10,
+      November = 11,
+      December = 12
+  }
+  ```
+- **Populating a UI Control from an Enum:**
+  In .NET, `Enum.GetValues<T>()` returns an array of all defined enum constants, which can be directly added to a `ComboBox`:
+  ```csharp
+  foreach (MonthOfAdmission month in Enum.GetValues<MonthOfAdmission>())
+  {
+      cmbMonth.Items.Add(month);
+  }
+  ```
+
+### 23. Data Binding & DataGridView CRUD Operations
+- **Projects:** `Assignment3_3`, `Assignment3_3_2`
+- **Microsoft Learn Reference:** [*DataGridView Control Overview*](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/controls/datagridview-control-overview-windows-forms) & [*BindingList<T> Class*](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.bindinglist-1)
+- **`List<T>` vs. `BindingList<T>`:**
+  - Standard `List<Student>` is a simple collection; it does **not** implement `IBindingList`. Modifying it (adding or deleting items) will not automatically refresh the bound `DataGridView`.
+  - `BindingList<Student>` implements `IBindingList` and fires `ListChanged` events whenever items are added, removed, or changed. This provides automatic, two-way synchronization with the UI.
+- **Data Binding Architecture:**
+  ```csharp
+  private readonly BindingList<Student> _students = new BindingList<Student>();
+  private readonly BindingSource _bindingSource = new BindingSource();
+
+  // Initialization:
+  _bindingSource.DataSource = _students;
+  dgvStudents.DataSource = _bindingSource;
+  ```
+- **CRUD Operations:**
+  - **Create (Add):**
+    ```csharp
+    Student newStudent = new Student(studId, firstName, lastName, address, month, grade);
+    _students.Add(newStudent); // DataGridView updates automatically
+    ```
+  - **Read (Display):**
+    Columns in `DataGridView` map directly to `Student` properties via `DataPropertyName`:
+    ```csharp
+    dgvStudents.Columns.Add(new DataGridViewTextBoxColumn
+    {
+        DataPropertyName = nameof(Student.FirstName),
+        HeaderText = "First Name",
+        Name = "colFirstName"
+    });
+    ```
+  - **Delete (Remove):**
+    ```csharp
+    if (dgvStudents.CurrentRow?.DataBoundItem is Student selectedStudent)
+    {
+        _students.Remove(selectedStudent); // Removed from collection and grid
+    }
+    ```
+
 ---
 
 ## Interview & Exam Quick-Check Questions (Weeks 1–3)
@@ -403,3 +488,7 @@ A living study guide tracking every core programming and OOP concept covered in 
 11. **What are the rules and constraints when using the `params` keyword?** *(Only one `params` parameter is allowed per method, it must be the last parameter, and it must be a single-dimensional array.)*
 12. **How does an `out` parameter differ from a `ref` parameter?** *(`out` parameters do not need to be initialized by the caller prior to passing, but the called method is required under definite assignment rules to set a value before returning. `ref` parameters require caller initialization.)*
 13. **What is the time complexity of linear search, and why does `Search` return `-1` if not found?** *(Time complexity is $O(N)$ in the worst/average case. `-1` is used as a sentinel value because valid 0-based array indices are $\ge 0$.)*
+14. **Why should you use `BindingList<T>` instead of `List<T>` when binding data to a `DataGridView`?** *(`BindingList<T>` implements `IBindingList`, firing change notifications so the grid automatically updates when items are added or removed, whereas `List<T>` requires manual grid refreshes.)*
+15. **What is the purpose of `[STAThread]` on a Windows Forms `Main` entry point?** *(It sets the threading model to Single-Threaded Apartment, which is required for Windows message dispatching, COM interop, clipboard access, and native dialogs like file pickers.)*
+16. **How do you populate a Windows Forms `ComboBox` with all values from an `enum`?** *(By iterating over `Enum.GetValues<MyEnum>()` or `Enum.GetValues(typeof(MyEnum))` and calling `comboBox.Items.Add(val)`.)*
+17. **What property links a `DataGridView` column to a specific property of a model object?** *(`DataPropertyName` must match the public property name on the bound model class.)*
